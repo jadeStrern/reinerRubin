@@ -7,9 +7,13 @@ StationWidgetManager::StationWidgetManager(QObject *parent) :
         m_vol->setGeometry(QRect(369, 340, 181, 20));
         m_vol->setOrientation(Qt::Horizontal);
 
-        m_reply = new QPushButton("reply");
+        m_reply = new QPushButton(tr("actionReply"));
+        m_reply->setMinimumWidth(100);
 
         m_listen = new QCheckBox("what");
+
+        m_indivator = new QGroupBox(tr("statusNotReplied")); // TODO add
+        m_indivator->setFixedSize(100, 30);
 }
 
 QSlider* StationWidgetManager::getVolSlider() {
@@ -22,4 +26,8 @@ QPushButton* StationWidgetManager::getReplyPushButton() {
 
 QCheckBox* StationWidgetManager::getListenCheckBox() {
     return m_listen;
+}
+
+QGroupBox* StationWidgetManager::getIndicator() const {
+    return m_indivator;
 }

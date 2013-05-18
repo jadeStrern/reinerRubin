@@ -3,8 +3,11 @@
 
 #include <QMainWindow>
 
-#include "sender.h"
-#include "player.h"
+#include <QList>
+#include <QSettings>
+
+#include "playermanager.h"
+#include "sendermanager.h"
 
 namespace Ui {
 class MainWindow;
@@ -27,8 +30,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    Sender* sn;
-    Player* pl;
+//    QSettings m_settings;
 };
 
 #endif // MAINWINDOW_H

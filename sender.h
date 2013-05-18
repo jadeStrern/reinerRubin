@@ -22,6 +22,8 @@ public:
     explicit Sender(QObject *parent = 0);
     void setHost(const QString& host);
     void setPort(int port);
+    QString getHost() const;
+    int getPort() const;
     void play();
 
     void setVolume(double vol);

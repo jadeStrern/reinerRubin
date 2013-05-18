@@ -5,6 +5,7 @@
 
 #include "playermanager.h"
 #include "sendermanager.h"
+#include "playersgroup.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -12,27 +13,53 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    sn = new Sender();
+    PlayersGroup* playersGr = new PlayersGroup();
+
     SenderManager* snm = new SenderManager();
     snm->setVolSlider(ui->horizontalSlider);
+    snm->setDestination("", 0);
 
-    for (int it = 0, end = 2; it != end; ++it) {
+    QSettings m_settings("/tmp/config.ini", QSettings::IniFormat);
+    m_settings.setIniCodec("UTF-8");
+
+    m_settings.beginGroup("stations");
+    const QStringList stations = m_settings.allKeys();
+    QStringList::ConstIterator it, end;
+
+    int pos = 0;
+    for(it = stations.begin(), end = stations.end(); it != end; ++it) {
+        QList<QVariant> stationParam = m_settings.value(*it).toList();
+        qDebug() << stationParam;
+
         PLayerManager* plm = new PLayerManager();
-        plm->setPort(it*2 + 5000);
-        plm->setStreamSource("127.0.0.1");
+
+        plm->setStreamSource(stationParam.at(0).toString());
+        plm->setPort(stationParam.at(1).toInt());
+        plm->setSourceInPort(stationParam.at(2).toInt());
+        plm->setStationName(stationParam.at(3).toString()); // TODO check
+
+        ui->gridLayout->addWidget(plm->getWidgets()->getVolSlider(), pos, 0);
+        ui->gridLayout->addWidget(plm->getWidgets()->getListenCheckBox(), pos, 1);
+        ui->gridLayout->addWidget(plm->getWidgets()->getReplyPushButton(), pos, 2);
+//        ui->gridLayout->addWidget(plm->getWidgets()->getIndicator(), pos, 3);
 
 
-        ui->gridLayout->addWidget(plm->getWidgets()->getVolSlider(), it, 0);
-        ui->gridLayout->addWidget(plm->getWidgets()->getListenCheckBox(), it, 1);
-        ui->gridLayout->addWidget(plm->getWidgets()->getReplyPushButton(), it, 2);
 
-        QObject::connect(plm, SIGNAL(replied(QString,int)),
-                         snm, SLOT(changeDestination(QString,int)));
+
+
+        playersGr->addPlayer(plm);
+
+        ++pos;
     }
+    QObject::connect(playersGr, SIGNAL(setAtcived(QString,int)),
+                     snm,       SLOT(changeDestination(QString,int)));
 
-//    QObject::connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(testVolume(int)));
+    QObject::connect(playersGr, SIGNAL(answeredOff()),
+                     snm, SLOT(sendOff()));
+
 
 }
+
 
 
 void MainWindow::testSlot1() {
@@ -48,12 +75,13 @@ void MainWindow::testSlot2() {
 void MainWindow::testVolume(int vol) {
     vol = vol == 0 ? 1 : vol;
     qDebug() << "set volume " << vol;
-    sn->setVolume(10.0/(100-vol)); // TODO calibrate
 }
 
 void MainWindow::testLevel() {
-    qDebug() << "level " << pl->getLevel();
+//    qDebug() << "level " << pl->getLevel();
 }
+
+
 
 MainWindow::~MainWindow()
 {

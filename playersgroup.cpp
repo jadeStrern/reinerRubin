@@ -7,6 +7,9 @@ PlayersGroup::PlayersGroup(QObject *parent) :
 }
 
 void PlayersGroup::addPlayer(PLayerManager *plm) {
+    QObject::connect(plm,  SIGNAL(settedActive(PLayerManager*)), // TODO insert playerMananger
+                     this, SLOT(setActive(PLayerManager*)));
+
     m_players->push_back(plm);
 }
 
@@ -19,11 +22,14 @@ void PlayersGroup::setActive(PLayerManager *plm) {
             if (plm == (*it)) continue;
             QGroupBox* gr = (*it)->getWidgets()->getIndicator();
             gr->setTitle(tr("statusNotReplied"));
+            (*it)->getWidgets()->getReplyPushButton()->setText(tr("actionReply"));
         }
         m_answered->getWidgets()->getReplyPushButton()->setText(tr("actionDropAnsw"));
     } else {
+
         m_answered->getWidgets()->getReplyPushButton()->setText(tr("actionReply"));
         m_answered->getWidgets()->getIndicator()->setTitle(tr("statusNotReplied"));
+
         m_answered = NULL;
         emit(answeredOff());
     }

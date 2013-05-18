@@ -19,10 +19,10 @@ PLayerManager::PLayerManager(QObject *parent) :
     QObject::connect(m_widgets->getReplyPushButton(), SIGNAL(clicked()),
                      this,                            SLOT(reply()));
     this->play();
-    QTimer* timer = new QTimer();
-    timer->start(1000);
-    QObject::connect(timer, SIGNAL(timeout()),
-                     this,  SLOT(checkDelta()));
+//    QTimer* timer = new QTimer();
+//    timer->start(1000);
+//    QObject::connect(timer, SIGNAL(timeout()),
+//                     this,  SLOT(checkDelta()));
 }
 
 void PLayerManager::play() {
@@ -42,15 +42,42 @@ void PLayerManager::setPort(int port) {
     m_player->setPort(port);
 }
 
+int PLayerManager::getPort() const {
+    return m_player->getPort();
+}
+
 void PLayerManager::setStreamSource(const QString &host) {
     m_srcStreamHost = host;
-    m_widgets->getListenCheckBox()->setText(m_srcStreamHost);
+}
+
+QString PLayerManager::getStreamSource() const {
+    return m_srcStreamHost;
 }
 
 
 void PLayerManager::reply() {
     qDebug() << "reply to " << m_srcStreamHost << " " << m_player->getPort();
-    emit replied(m_srcStreamHost, m_player->getPort());
+    m_widgets->getIndicator()->setTitle(tr("statusReplied"));
+//    m_widgets->getIndicator()->setStyleSheet("background: blue");
+    emit replied(m_srcStreamHost, m_srcInPort);
+    emit settedActive(this);
+}
+
+QString PLayerManager::getStationName() const {
+    return m_stationName;
+}
+
+void PLayerManager::setStationName(const QString &name) {
+    m_stationName = name;
+    m_widgets->getListenCheckBox()->setText(m_stationName);
+}
+
+void PLayerManager::setSourceInPort(int port) {
+    m_srcInPort = port;
+}
+
+int PLayerManager::getSourceInPort() const {
+    return m_srcInPort;
 }
 
 StationWidgetManager* PLayerManager::getWidgets() {

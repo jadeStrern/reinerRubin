@@ -35,6 +35,18 @@ void SenderManager::changeDestination(const QString &host, int port) {
     setDestination(host, port);
 }
 
+void SenderManager::sendOff() {
+    setDestination("", 0);
+}
+
+int SenderManager::getDestPort() {
+    return m_sender->getPort();
+}
+
+QString SenderManager::getDestHost() {
+    return m_sender->getHost();
+}
+
 
 int SenderManager::toSlider(double vol) {
     return (int)vol*sliderGstreamerCof;

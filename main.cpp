@@ -1,9 +1,24 @@
 #include <QApplication>
+#include <QTranslator>
+#include <QLibraryInfo>
+
 #include "mainwindow.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+//    QTextCodec::setCodecForCStrings(QTextCodec::codecName("UTF-8"));
+
+    QTranslator qtTranslator;
+    qtTranslator.load("qt_" + QLocale::system().name(),
+            QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    a.installTranslator(&qtTranslator);
+
+    QTranslator myappTranslator;
+//    myappTranslator.load("reinerRubin_" + QLocale::system().name());
+    myappTranslator.load("/tmp/reinerRubin_ru");
+    a.installTranslator(&myappTranslator);
+
     MainWindow w;
     w.show();
     

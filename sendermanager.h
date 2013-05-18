@@ -5,6 +5,7 @@
 
 #include "sender.h"
 #include "senderwidgetmanager.h"
+#include "playermanager.h"
 
 
 #include <QSlider>
@@ -16,11 +17,14 @@ public:
     explicit SenderManager(QObject *parent = 0);
     void setDestination(const QString& host, int port);
     void setVolSlider(QSlider* volSlider);
+    int getDestPort();
+    QString getDestHost();
 signals:
-    
+
 public slots:
     void changeVolume(int vol);
     void changeDestination(const QString& host, int port);
+    void sendOff();
 
 private:
     Sender* m_sender;

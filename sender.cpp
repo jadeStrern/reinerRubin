@@ -67,7 +67,7 @@ void Sender::setHost(const QString &host) {
 }
 
 void Sender::setPort(int port) {
-       rtpudpsink->setProperty("port", port);
+    rtpudpsink->setProperty("port", port);
 }
 
 void Sender::play() {
@@ -81,5 +81,15 @@ void Sender::setVolume(double vol) {
 double Sender::getVolume() const {
     QGlib::Value vol = volumeOut->property("volume");
     return vol.get<double>();
+}
 
+
+int Sender::getPort() const {
+    QGlib::Value port = rtpudpsink->property("port");
+    return port.toInt();
+}
+
+QString Sender::getHost() const {
+    QGlib::Value host = rtpudpsink->property("host");
+    return host.toString();
 }

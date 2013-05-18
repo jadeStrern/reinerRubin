@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     stationwidgetmanager.cpp \
     playermanager.cpp \
     sendermanager.cpp \
-    senderwidgetmanager.cpp
+    senderwidgetmanager.cpp \
+    playersgroup.cpp
 
 HEADERS  += mainwindow.h \
     player.h \
@@ -37,7 +38,11 @@ HEADERS  += mainwindow.h \
     stationwidgetmanager.h \
     playermanager.h \
     sendermanager.h \
-    senderwidgetmanager.h
+    senderwidgetmanager.h \
+    playersgroup.h
+
+TRANSLATIONS  = reinerRubin_ru.ts
+
 
 FORMS    += mainwindow.ui
 
