@@ -1,4 +1,6 @@
 #include <QTimer>
+#include <QLabel>
+#include <QGridLayout>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -26,7 +28,19 @@ MainWindow::MainWindow(QWidget *parent) :
     const QStringList stations = m_settings.allKeys();
     QStringList::ConstIterator it, end;
 
+
+    ui->scrollAreaWidgetContents->setContentsMargins(10, 0, 10, 10);
+    QGridLayout* gridLayout = new QGridLayout(ui->scrollAreaWidgetContents);
+    gridLayout->setSpacing(6);
+    gridLayout->setContentsMargins(11, 11, 11, 11);
+    gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+    gridLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
+    gridLayout->setContentsMargins(0, 0, 0, 0);
+
+    gridLayout->setVerticalSpacing(20);
+
     int pos = 0;
+
     for(it = stations.begin(), end = stations.end(); it != end; ++it) {
         QList<QVariant> stationParam = m_settings.value(*it).toList();
         qDebug() << stationParam;
@@ -38,14 +52,10 @@ MainWindow::MainWindow(QWidget *parent) :
         plm->setSourceInPort(stationParam.at(2).toInt());
         plm->setStationName(stationParam.at(3).toString()); // TODO check
 
-        ui->gridLayout->addWidget(plm->getWidgets()->getVolSlider(), pos, 0);
-        ui->gridLayout->addWidget(plm->getWidgets()->getListenCheckBox(), pos, 1);
-        ui->gridLayout->addWidget(plm->getWidgets()->getReplyPushButton(), pos, 2);
-//        ui->gridLayout->addWidget(plm->getWidgets()->getIndicator(), pos, 3);
-
-
-
-
+        gridLayout->addWidget(plm->getWidgets()->getVolSlider(), pos, 0);
+        gridLayout->addWidget(plm->getWidgets()->getListenCheckBox(), pos, 1);
+        gridLayout->addWidget(plm->getWidgets()->getReplyPushButton(), pos, 2);
+        gridLayout->addWidget(plm->getWidgets()->getIndicator(), pos, 3);
 
         playersGr->addPlayer(plm);
 
