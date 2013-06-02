@@ -19,6 +19,8 @@ public:
     void setVolSlider(QSlider* volSlider);
     int getDestPort();
     QString getDestHost();
+
+    void play();
 signals:
 
 public slots:

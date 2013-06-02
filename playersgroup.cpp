@@ -1,4 +1,5 @@
 #include "playersgroup.h"
+#include <QTimer>
 
 PlayersGroup::PlayersGroup(QObject *parent) :
     QObject(parent)

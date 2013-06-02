@@ -18,11 +18,12 @@ PLayerManager::PLayerManager(QObject *parent) :
 
     QObject::connect(m_widgets->getReplyPushButton(), SIGNAL(clicked()),
                      this,                            SLOT(reply()));
-    this->play();
-//    QTimer* timer = new QTimer();
-//    timer->start(1000);
-//    QObject::connect(timer, SIGNAL(timeout()),
-//                     this,  SLOT(checkDelta()));
+//    this->play();
+    QTimer* timer = new QTimer();
+    timer->start(1000);
+    QObject::connect(timer, SIGNAL(timeout()),
+                     this,  SLOT(checkDelta()));
+
 }
 
 void PLayerManager::play() {
@@ -58,7 +59,6 @@ QString PLayerManager::getStreamSource() const {
 void PLayerManager::reply() {
     qDebug() << "reply to " << m_srcStreamHost << " " << m_player->getPort();
     m_widgets->getIndicator()->setTitle(tr("statusReplied"));
-//    m_widgets->getIndicator()->setStyleSheet("background: blue");
     emit replied(m_srcStreamHost, m_srcInPort);
     emit settedActive(this);
 }
@@ -85,7 +85,14 @@ StationWidgetManager* PLayerManager::getWidgets() {
 }
 
 void PLayerManager::checkDelta() {
-    qDebug() << "delta " << (double)m_player->getLevel();
+    bool voice = m_player->getLevel();
+    long ts = m_player->getTimeStamp();
+    if(voice) {
+        m_widgets->getIndicator()->setStyleSheet("background-color: blue;");
+    } else {
+        m_widgets->getIndicator()->setStyleSheet("background-color: green;");
+    }
+    m_lastStamp = ts;
 }
 
 int PLayerManager::toSlider(double vol) {

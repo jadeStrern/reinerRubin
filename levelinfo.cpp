@@ -6,54 +6,24 @@
 LevelInfo::LevelInfo()
 {
     // TODO make static
-    rx = QRegExp("([\\+,\\-]\\d+\\.\\d+)");
 }
 
 
-double LevelInfo::getDecay() {
-    return extractDouble(m_decay);
+
+long LevelInfo::getTimestamp() const {
+    return m_time;
 }
 
-double LevelInfo::getPeak() {
-    return extractDouble(m_peak);
+void LevelInfo::setTimestamp(long time) {
+    m_time = time;
 }
 
-double LevelInfo::getRMS() {
-//    m_lastRMS = extractDouble(m_rms);
-//    return m_lastRMS;
-    return extractDouble(m_rms);
+// ********************
+
+bool LevelInfo::getAboveStatus() const {
+    return m_above;
 }
 
-
-void LevelInfo::setPeak(const QString& peak) {
-    m_peak = peak;
-}
-
-void LevelInfo::setDecay(const QString& decay) {
-    m_decay = decay;
-}
-
-void LevelInfo::setRMS(const QString& rms) {
-    m_rms = rms;
-}
-
-double LevelInfo::extractDouble(const QString &dstr) {
-    QStringList list;
-    int pos = 0;
-    while ((pos = rx.indexIn(dstr, pos)) != -1) {
-        list << rx.cap(1);
-        pos += rx.matchedLength();
-    }
-
-    if(list.size() > 1)
-        qDebug() << "!!!!!!!!!!!!!!!!!!!!!!!!!!!";
-
-    return list.size() == 0 ? 0 : list.at(0).toDouble();
-}
-
-double LevelInfo::getDeltaRMS() {
-//    double rms = extractDouble(m_rms);
-//    double res = qAbs(rms - m_lastRMS);
-//    m_lastRMS = rms;
-    return qAbs(getPeak() - getRMS());
+void LevelInfo::setAboveStatus(bool above) {
+    m_above = above;
 }

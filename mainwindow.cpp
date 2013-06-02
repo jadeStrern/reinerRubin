@@ -58,7 +58,7 @@ MainWindow::MainWindow(QWidget *parent) :
         gridLayout->addWidget(plm->getWidgets()->getIndicator(), pos, 3);
 
         playersGr->addPlayer(plm);
-
+        plm->play();
         ++pos;
     }
     QObject::connect(playersGr, SIGNAL(setAtcived(QString,int)),
@@ -67,7 +67,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(playersGr, SIGNAL(answeredOff()),
                      snm, SLOT(sendOff()));
 
-
+    snm->play();
+//    snm->setDestination("", 0);
 }
 
 

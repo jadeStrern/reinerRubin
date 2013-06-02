@@ -13,6 +13,7 @@
 #include <QGst/Structure>
 #include <QGst/Bus>
 #include <QGst/Message>
+#include <QGst/Utils/ApplicationSource>
 
 #include "levelinfo.h"
 
@@ -21,6 +22,7 @@
 class Player : public QObject
 {
     Q_OBJECT
+
 public:
     explicit Player(QObject *parent = 0);
 
@@ -36,11 +38,13 @@ public:
     bool getMute();
     void setMute(bool mute);
 
-    double getLevel();
+    bool getLevel();
+    long getTimeStamp() const;
+
 signals:
 
 public slots:
-private:
+    private:
     void init();
     void getMessage(const QGst::MessagePtr & message);
     QGst::PipelinePtr m_pipelineIn;

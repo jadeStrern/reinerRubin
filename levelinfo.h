@@ -7,28 +7,18 @@
 class LevelInfo
 {
 public:
-    LevelInfo(); // add set with doubles
-    void setPeak(const QString& peak);
-    void setDecay(const QString& decay);
-    void setRMS(const QString& rms);
+    LevelInfo();
 
-    double getPeak();
-    double getDecay();
-    double getRMS();
+    bool getAboveStatus() const;
+    void setAboveStatus(bool above);
 
-    double getDeltaRMS();
+    long getTimestamp() const;
+    void setTimestamp(long time);
+
 private:
-    QString m_peak;
-    QString m_decay;
-    QString m_rms;
+    bool m_above; // true voice || false nope
+    long m_time;
 
-    double _m_peak;
-    double _m_decay;
-    double _m_rms;
-
-    double extractDouble(const QString & dstr);
-
-    QRegExp rx;
 };
 
 #endif // LEVELINFO_H

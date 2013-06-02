@@ -9,6 +9,7 @@
 class PLayerManager : public QObject
 {
     Q_OBJECT
+
 public:
     explicit PLayerManager(QObject *parent = 0);
     // audio source port
@@ -24,7 +25,6 @@ public:
     void setStationName(const QString& name);
     QString getStationName() const;
 
-    void play();
     StationWidgetManager* getWidgets();
 signals:
     void replied(const QString& host, int port);
@@ -32,6 +32,7 @@ signals:
 public slots:
     void changeVolume(int vol);
     void swapMute(); // maybe do on off
+    void play();
 
     void checkDelta();
 private slots:
@@ -44,6 +45,8 @@ private :
     int m_srcInPort;
     // just inidificator
     QString m_stationName;
+
+    long m_lastStamp;
 
     static const int sliderGstreamerCof = 10;
     double toVol(int vol);
