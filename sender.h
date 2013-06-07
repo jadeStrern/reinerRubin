@@ -18,6 +18,7 @@
 class Sender : public QObject
 {
     Q_OBJECT
+
 public:
     explicit Sender(QObject *parent = 0);
     void setHost(const QString& host);

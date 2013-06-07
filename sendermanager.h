@@ -13,6 +13,7 @@
 class SenderManager : public QObject
 {
     Q_OBJECT
+
 public:
     explicit SenderManager(QObject *parent = 0);
     void setDestination(const QString& host, int port);

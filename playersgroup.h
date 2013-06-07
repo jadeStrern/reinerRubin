@@ -10,6 +10,7 @@
 class PlayersGroup : public QObject
 {
     Q_OBJECT
+
 public:
     explicit PlayersGroup(QObject *parent = 0);
     void addPlayer(PLayerManager* plm);

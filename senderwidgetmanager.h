@@ -8,6 +8,7 @@
 class SenderWidgetManager : public QObject
 {
     Q_OBJECT
+
 public:
     explicit SenderWidgetManager(QObject *parent = 0);
     QSlider* getVolSlider();

@@ -12,6 +12,7 @@
 class StationWidgetManager : public QObject
 {
     Q_OBJECT
+
 public:
     explicit StationWidgetManager(QObject *parent = 0);
     QSlider* getVolSlider();
