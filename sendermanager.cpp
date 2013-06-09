@@ -10,7 +10,6 @@ SenderManager::SenderManager(QObject *parent) :
 
     QObject::connect(m_widgets->getVolSlider(), SIGNAL(valueChanged(int)),
                      this,                      SLOT(changeVolume(int)));
-//    m_sender->play();
 }
 
 void SenderManager::setDestination(const QString &host, int port) {

@@ -68,29 +68,8 @@ MainWindow::MainWindow(QWidget *parent) :
                      snm, SLOT(sendOff()));
 
     snm->play();
-//    snm->setDestination("", 0);
 }
 
-
-
-void MainWindow::testSlot1() {
-    qDebug() << "change (drop)!";
-//    sn->setDestination("192.168.0.1");
-}
-
-void MainWindow::testSlot2() {
-    qDebug() << "change (add)!";
-//    sn->setDestination("127.0.0.1");
-}
-
-void MainWindow::testVolume(int vol) {
-    vol = vol == 0 ? 1 : vol;
-    qDebug() << "set volume " << vol;
-}
-
-void MainWindow::testLevel() {
-//    qDebug() << "level " << pl->getLevel();
-}
 
 
 

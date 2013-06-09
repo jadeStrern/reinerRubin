@@ -13,6 +13,6 @@ QSlider* SenderWidgetManager::getVolSlider() {
 }
 
 void SenderWidgetManager::setVolSlider(QSlider *volSlider) {
-    delete m_volume; // ???
+    delete m_volume;
     m_volume = volSlider;
 }

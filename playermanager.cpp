@@ -18,7 +18,6 @@ PLayerManager::PLayerManager(QObject *parent) :
 
     QObject::connect(m_widgets->getReplyPushButton(), SIGNAL(clicked()),
                      this,                            SLOT(reply()));
-//    this->play();
     QTimer* timer = new QTimer();
     timer->start(1000);
     QObject::connect(timer, SIGNAL(timeout()),
