@@ -8,6 +8,7 @@
 
 #include "playermanager.h"
 #include "sendermanager.h"
+#include "playersgroup.h"
 
 namespace Ui {
 class MainWindow;
@@ -30,6 +31,10 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
+
+    PlayersGroup* playersGr;
+    SenderManager* snm;
+    QSettings m_settings;
 //    QSettings m_settings;
 };
 

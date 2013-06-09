@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 
     QTranslator myappTranslator;
 //    myappTranslator.load("reinerRubin_" + QLocale::system().name());
-    myappTranslator.load("/tmp/reinerRubin_ru");
+    myappTranslator.load("./etc/reinerRubin_ru");
     a.installTranslator(&myappTranslator);
 
     MainWindow w;

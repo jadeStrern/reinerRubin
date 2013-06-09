@@ -160,7 +160,6 @@ long Player::getTimeStamp() const {
 }
 
 void Player::getMessage(const QGst::MessagePtr &message) {
-    return;
     QGst::StructurePtr str = message->internalStructure();
     int endq = str->numberOfFields();
     qDebug() << "name " << str->name() << message->typeName();

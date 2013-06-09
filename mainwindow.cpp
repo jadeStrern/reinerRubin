@@ -11,17 +11,17 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    m_settings("./etc/config.ini", QSettings::IniFormat)
 {
     ui->setupUi(this);
 
-    PlayersGroup* playersGr = new PlayersGroup();
+    playersGr = new PlayersGroup();
+    snm = new SenderManager();
 
-    SenderManager* snm = new SenderManager();
     snm->setVolSlider(ui->horizontalSlider);
     snm->setDestination("", 0);
 
-    QSettings m_settings("/tmp/config.ini", QSettings::IniFormat);
     m_settings.setIniCodec("UTF-8");
 
     m_settings.beginGroup("stations");
